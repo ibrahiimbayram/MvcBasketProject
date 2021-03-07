@@ -18,7 +18,6 @@ namespace DataAcces.Interfaces
 
         List<UserBasket> GetListOrderCompleted(string user);
         int GetQuantity(string username);
-        "Test"
 
         void Delete(int id);
     }
