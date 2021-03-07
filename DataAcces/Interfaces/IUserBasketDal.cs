@@ -15,7 +15,6 @@ namespace DataAcces.Interfaces
 
         Products GetById(int id);
         void OrderCompleted(string user, int id);
-        "Test"
 
         List<UserBasket> GetListOrderCompleted(string user);
         int GetQuantity(string username);
