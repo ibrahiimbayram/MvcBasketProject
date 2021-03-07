@@ -1,0 +1,160 @@
+﻿
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    th {
+        text-align: center;
+        vertical-align: middle;
+        height: 100%;
+    }
+
+    #bas {
+        border: 1px solid groove;
+        max-width: 100px;
+        border-radius: 20px;
+        width: 110px;
+        position: relative;
+        margin: auto;
+    }
+
+    a {
+        text-align: center;
+        vertical-align: middle;
+        color: black;
+        width: 100%;
+    }
+</style>
+<div class="row">
+    <div class="col-md-9">
+    </div>
+    <div class="col-md-2">
+        <br />
+        <a href="@Url.Action("GetLanguageOrder", "UserBasket", new { id = "Türkce" })">
+            <img src="~/Flag/turkbayragi.jpg" id="turk" />
+        </a>
+        <a href="@Url.Action("GetLanguageOrder", "UserBasket", new { id = "İngilizce" })">
+            <img src="~/Flag/ingiliz.jpg" id="ing" />
+        </a>
+    </div>
+    <div class="col-md-1">
+        <br />
+        <a href="@Url.Action("List", "UserBasket")">
+            <button class="btn btn-info" id="sepetim">
+                <span class="glyphicon glyphicon-shopping-cart"></span>
+                @if (Session["languageName"] == null)
+                {
+                    <p>Siparişlerim</p>
+                }
+                else
+                {
+                    <p>Siparişlerim</p>
+                }
+
+            </button>
+        </a>
+
+    </div>
+</div>
+<br />
+@if (Session["languageName"] == null)
+{
+    <h1 class="text-center">Sepetim</h1>
+}
+else
+{
+    <h1 class="text-center">@Session["languageName"]</h1>
+}
+
+
+<table class="table table-bordered">
+    <thead>
+        @if (ViewBag.language != null)
+        {
+            <tr>
+                <th scope="col">
+
+                    @if (ViewBag.language.Name == "İngilizce")
+                    {
+                        <p>Product Picture</p>
+                    }
+                    else if (ViewBag.language.Name == "Türkce")
+                    {
+                        <p>Ürün Resmi</p>
+                    }
+                </th>
+                <th scope="col">
+                    @if (ViewBag.language.Name == "İngilizce")
+                    {
+                        <p>Product Code</p>
+                    }
+                    else if (ViewBag.language.Name == "Türkce")
+                    {
+                        <p>Ürün Kodu</p>
+                    }
+                </th>
+                <th scope="col">
+                    @if (ViewBag.language.Name == "İngilizce")
+                    {
+                        <p>Quantity</p>
+                    }
+                    else if (ViewBag.language.Name == "Türkce")
+                    {
+                        <p>Miktar</p>
+                    }
+                </th>
+
+            </tr>
+        }
+        else
+        {
+            <tr>
+                <th scope="col">
+                    <p>Ürün Resmi</p>
+
+                </th>
+                <th scope="col">
+                    <p>Ürün Kodu</p>
+                </th>
+                <th scope="col">
+                    <p>Miktar</p>
+                </th>
+            </tr>
+        }
+    </thead>
+    <tbody>
+        @{int i = 0;}
+        @foreach (var item in ViewBag.userbasket)
+        {
+            <tr height="120px">
+                <th scope="row" width="150px">
+                    <div class="text-center">
+
+                        <img src="@Url.Content(@item.ProductPicture)" height="80px" width="80px" />
+                    </div>
+
+                </th>
+                <td>
+                    @item.ProductCode <BR />
+                    @item.ProductName
+
+
+                </td>
+                @{i++;
+                }
+
+                <td width="80px" id="Quantity">
+                    <div class="text-center">
+                        <p>
+                            @item.Quantity
+                        </p>
+                        @*<input type="text" name="Quantity" value="" class="input-sm" style="width: 50px;" style="vertical-align" />*@
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

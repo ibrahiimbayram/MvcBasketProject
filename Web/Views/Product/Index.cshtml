@@ -1,0 +1,54 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="text-center">
+
+
+        <div class="container">
+            <h2>Ürün Ekle</h2>
+            <form class="form-horizontal" method="post" enctype="multipart/form-data">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="form-control-sm"><h4>Ürün Adı</h4></label>
+                        <input type="text" class="form-control" name="ProductName" required="required">
+
+                    </div>
+                </div>
+                <div class="col-md-6" id="txt1">
+                    <div class="form-group">
+                        <label class="form-control-sm"><h4>Ürün Kodu</h4></label>
+                        <input type="text" class="form-control" name="ProductCode" required="required">
+
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <div class="form-group">
+                        <label class="form-control-sm"><h4>Ürün Resmi</h4></label>
+                        <input type="file" class="form-control" name="photo" required="required">
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <input type="submit" class="btn btn-block pull-right" value="Kaydet" />
+                </div>
+
+            </form>
+        </div>
+    </div>
+</body>
+</html>
+
+
