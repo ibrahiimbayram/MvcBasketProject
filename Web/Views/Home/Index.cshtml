@@ -60,6 +60,10 @@
         <br /><br />
     </div>
 </div>
+<h3>
+    @Html.ActionLink("Yeni Ürün", "Index", "Product")
+</h3>
+
 <table class="table table-bordered">
     <thead>
         @if (ViewBag.language != null)
@@ -151,27 +155,29 @@
                     </td>
                     <td width="80px">
                         <div class="text-center">
-                            <input type="text" name="Quantity" id="Quantity" class="input-sm" style="width: 50px;" style="vertical-align" />
+                            <input type="text" name="Quantity" id="Quantity" value="1" class="input-sm" style="width: 50px;" style="vertical-align" />
                         </div>
                     </td>
                     <td>
+                        <input type="hidden" name="ProductPicture" value="@item.ProductPicture" />
+                        <input type="hidden" name="ProductCode" value="@item.ProductCode" />
+                        <input type="hidden" name="ProductName" value="@item.ProductName" />
+                        <input type="hidden" name="userName" value="@Session["user"]" />
                         <div class="text-md-center">
                             <div id="bas">
                                 <div id="ic">
                                     @if (ViewBag.language == null)
                                     {
-                                        <input type="hidden" name="ProductPicture" value="@item.ProductPicture" />
-                                        <input type="hidden" name="ProductCode" value="@item.ProductCode" />
-                                        <input type="hidden" name="ProductName" value="@item.ProductName" />
-                                 
-                                        <font size="4px"><span class="glyphicon glyphicon-shopping-cart"><input type="submit" value="Sepete At" /> </span> </font> <b></b>
+
+
+                                        <font size="2px"><span class="glyphicon glyphicon-shopping-cart"><input type="submit" value="Sepete At" /> </span> </font> <b></b>
 
                                         @*<a class="m-md-3"><font size="4px"><span class="glyphicon glyphicon-shopping-cart"></span> </font> <b>Sepete At</b></a>*@
 
                                     }
                                     else
                                     {
-                                        <a class="m-md-3"><font size="4px"><span class="glyphicon glyphicon-shopping-cart"></span> </font> <b>@ViewBag.language.BasketAdd</b></a>
+                                        <font size="2px"><span class="glyphicon glyphicon-shopping-cart"><input type="submit" value="@ViewBag.language.BasketAdd" /> </span> </font> <b></b>
                                     }
 
                                 </div>

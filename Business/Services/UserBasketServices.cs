@@ -60,5 +60,10 @@ namespace Business.Services
         {
             _userBasket.Delete(id);
         }
+
+        public void Update(UserBasket userBasket)
+        {
+            _userBasket.Update(userBasket);
+        }
     }
 }

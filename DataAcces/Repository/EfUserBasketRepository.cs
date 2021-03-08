@@ -3,6 +3,7 @@ using DataAcces.Interfaces;
 using Entity.Tables;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,14 +26,14 @@ namespace DataAcces.Repository
 
         public void Delete(int id)
         {
-            var user= _dataContext.userBaskets.Find(id);
+            var user = _dataContext.userBaskets.Find(id);
             _dataContext.userBaskets.Remove(user);
             _dataContext.SaveChanges();
         }
 
         public Products GetById(int id)
         {
-           return _dataContext.Products.Find(id);
+            return _dataContext.Products.Find(id);
         }
 
         public List<UserBasket> GetListOrderCompleted(string user)
@@ -44,14 +45,13 @@ namespace DataAcces.Repository
         {
 
 
-
-
-            return _dataContext.userBaskets.Where(I => I.UserName == username && I.Order == "NotCompleted").Sum(I => I.Quantity);
+                return _dataContext.userBaskets.Where(I => I.UserName == username && I.Order == "NotCompleted").Sum(I => I.Quantity);
+   
         }
 
         public List<UserBasket> GetUserBaskets(string user)
         {
-            return _dataContext.userBaskets.Where(I => I.UserName == user&&I.Order=="NotCompleted").ToList();
+            return _dataContext.userBaskets.Where(I => I.UserName == user && I.Order == "NotCompleted").ToList();
         }
 
         public void OrderCompleted(string user, int id)
@@ -60,6 +60,13 @@ namespace DataAcces.Repository
             var result = _dataContext.userBaskets.Where(I => I.UserName == user && I.Id == id).FirstOrDefault();
 
             result.Order = "Completed";
+            _dataContext.SaveChanges();
+        }
+
+        public void Update(UserBasket userBasket)
+        {
+            var updatedata = _dataContext.userBaskets.Find(userBasket.Id);
+            updatedata.Quantity = userBasket.Quantity;
             _dataContext.SaveChanges();
         }
     }

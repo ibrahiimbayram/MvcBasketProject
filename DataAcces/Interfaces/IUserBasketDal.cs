@@ -20,5 +20,6 @@ namespace DataAcces.Interfaces
         int GetQuantity(string username);
 
         void Delete(int id);
+        void Update(UserBasket userBasket);
     }
 }

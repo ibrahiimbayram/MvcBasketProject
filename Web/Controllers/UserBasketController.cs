@@ -23,63 +23,73 @@ namespace Web.Controllers
         [HttpPost]
         public ActionResult Index(UserBasket basket)
         {
-            //var products = _userBasket.GetById(id);
+            var user = Session["user"];
+            if (user == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+            else
+            {
+                basket.UserName = Session["user"].ToString();
+                basket.Order = "NotCompleted";
 
-            //UserBasket basket = new UserBasket();
-            //basket.ProductCode = products.ProductCode;
-            //basket.ProductName = products.ProductName;
-            //basket.ProductPicture = products.ProductPicture;
-            //basket.Quantity = 1;
-            //basket.UserName = Session["user"].ToString();
-            //basket.Order = "Not Completed";
+                _userBasket.Add(basket);
 
-            _userBasket.Add(basket);
-
-            return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Home");
+            }
+      
         }
-
-
-
-        //public ActionResult Index(int id)
-        //{
-        //    var products = _userBasket.GetById(id);
-
-        //    UserBasket basket = new UserBasket();
-        //    basket.ProductCode = products.ProductCode;
-        //    basket.ProductName = products.ProductName;
-        //    basket.ProductPicture = products.ProductPicture;
-        //    basket.Quantity =1;
-        //    basket.UserName = Session["user"].ToString();
-        //    basket.Order = "Not Completed";
-
-        //    _userBasket.Add(basket);
-
-        //    return RedirectToAction("Index","Home");
-        //}
 
 
         public ActionResult List(string user)
         {
+            var usersesion = Session["user"];
+            if (usersesion == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+            else
+            {
 
-            ViewBag.language = TempData["Language"];
-            string username= Session["user"].ToString();
-            ViewBag.userbasket = _userBasket.List(username);
+                ViewBag.language = TempData["Languageliste"];
+                string username = Session["user"].ToString();
 
-            ViewBag.quantity = _userBasket.GetQuantity(username);
+                var userbasketlist= _userBasket.List(username);
+                ViewBag.userbasket = userbasketlist;
+
+                if (userbasketlist.Count != 0)
+                {
+                    ViewBag.quantity = _userBasket.GetQuantity(username);
+                }
+                else
+                {
+                    ViewBag.quantity = 0;
+                }
+            }
+
             return View();
         }
 
 
         public ActionResult GetLanguage(string id)
         {
+            var usersesion = Session["user"];
+            if (usersesion == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+            else
+            {
+                var name = _languageServices.GetLanguages(id);
+                Session["languageNameMyBaket"] = name.MyBasket;
 
-            var name = _languageServices.GetLanguages(id);
-            Session["languageName"] = name.MyBasket;
 
 
-            TempData["Language"] = _languageServices.GetLanguages(id);
+                TempData["Languageliste"] = _languageServices.GetLanguages(id);
 
-            return RedirectToAction("List");
+                return RedirectToAction("List");
+            }
+        
         }
 
         public ActionResult LogOut(string id)
@@ -93,64 +103,95 @@ namespace Web.Controllers
 
         public ActionResult Order(int id)
         {
-            string username = Session["user"].ToString();
+            var usersesion = Session["user"];
+            if (usersesion == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+            else
+            {
+                string username = Session["user"].ToString();
 
-            _userBasket.OrderCompleted(username, id);
+                _userBasket.OrderCompleted(username, id);
 
-            return RedirectToAction("List");
+                return RedirectToAction("List");
+            }
         }
 
         public ActionResult ComletedList(string user)
         {
+            var usersesion = Session["user"];
+            if (usersesion == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+            else
+            {
+                ViewBag.language = TempData["Languageorder"];
+                string username = Session["user"].ToString();
+                ViewBag.userbasket = _userBasket.GetListOrderCompleted(username);
 
-            ViewBag.language = TempData["Language"];
-            string username = Session["user"].ToString();
-            ViewBag.userbasket = _userBasket.GetListOrderCompleted(username);
-
-            return View();
+                return View();
+            }
         }
 
 
         public ActionResult GetLanguageOrder(string id)
         {
+            var usersesion = Session["user"];
+            if (usersesion == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+            else
+            {
+         
 
-            var name = _languageServices.GetLanguages(id);
-            Session["languageName"] = name.MyBasket;
+                var name = _languageServices.GetLanguages(id);
+                Session["languageNameComlpleted"] = name.OrderCompleted;
 
 
-            TempData["Language"] = _languageServices.GetLanguages(id);
+                TempData["Languageorder"] = _languageServices.GetLanguages(id);
 
-            return RedirectToAction("ComletedList");
+                return RedirectToAction("ComletedList");
+            }
         }
 
 
         public ActionResult Delete(int id)
         {
+            var usersesion = Session["user"];
+            if (usersesion == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+            else
+            {
+                _userBasket.Delete(id);
 
-            _userBasket.Delete(id);
 
 
-
-            return RedirectToAction("List");
+                return RedirectToAction("List");
+            }
         }
 
 
-        public ActionResult Edit(int id)
-        {
-
-
-
-            return View();
-        }
-
-
-        [HttpPost]
         public ActionResult Edit(UserBasket userBasket)
         {
+            var usersesion = Session["user"];
+            if (usersesion == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+            else
+            {
+                _userBasket.Update(userBasket);
 
 
-
-            return View();
+                return RedirectToAction("List");
+            }
         }
+
+
     }
 }

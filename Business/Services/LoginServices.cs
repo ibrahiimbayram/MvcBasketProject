@@ -20,11 +20,6 @@ namespace Business.Services
         public Users SignUp(Users users)
         {
              _usersDal.Add(users);
-            //if (FindUser != null)
-            //{
-            //    _usersDal.Add(users);
-            //}
-            //_usersDal.Add(users);
             return null;
         }
 
@@ -51,11 +46,6 @@ namespace Business.Services
         public List<Users> Get()
         {
             var FindUser = _usersDal.GetAll();
-            //if (FindUser != null)
-            //{
-            //    _usersDal.Add(users);
-            //}
-            //_usersDal.Add(users);
             return FindUser;
         }
 

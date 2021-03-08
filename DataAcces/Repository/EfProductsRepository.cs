@@ -30,9 +30,6 @@ namespace DataAcces.Repository
             return _context.Products.ToList();
         }
 
-        //public Products GetByProductId(int id)
-        //{
-        //    return _context.Products.Find(id);
-        //}
+
     }
 }

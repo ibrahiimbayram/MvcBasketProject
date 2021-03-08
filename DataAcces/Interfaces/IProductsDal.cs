@@ -12,6 +12,5 @@ namespace DataAcces.Interfaces
         void Add(Products products);
         List<Products> GetAll();
 
-        //Products GetById(int id);
     }
 }

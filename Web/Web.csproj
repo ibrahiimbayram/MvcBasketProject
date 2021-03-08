@@ -228,7 +228,6 @@
     <Content Include="Views\Product\Index.cshtml" />
     <Content Include="Views\UserBasket\List.cshtml" />
     <Content Include="Views\UserBasket\ComletedList.cshtml" />
-    <Content Include="Views\UserBasket\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

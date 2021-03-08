@@ -44,13 +44,13 @@
         <a href="@Url.Action("List", "UserBasket")">
             <button class="btn btn-info" id="sepetim">
                 <span class="glyphicon glyphicon-shopping-cart"></span>
-                @if (Session["languageName"] == null)
+                @if (Session["languageOrderNameMyBaket"] == null)
                 {
-                    <p>Siparişlerim</p>
+                    <p>Sepetim</p>
                 }
                 else
                 {
-                    <p>Siparişlerim</p>
+                    <p>@Session["languageOrderNameMyBaket"]</p>
                 }
 
             </button>
@@ -61,11 +61,11 @@
 <br />
 @if (Session["languageName"] == null)
 {
-    <h1 class="text-center">Sepetim</h1>
+    <h1 class="text-center">Siparişlerim</h1>
 }
 else
 {
-    <h1 class="text-center">@Session["languageName"]</h1>
+    <h1 class="text-center">Siparişlerim</h1>
 }
 
 

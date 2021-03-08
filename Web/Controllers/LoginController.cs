@@ -13,14 +13,13 @@ namespace Web.Controllers
 {
     public class LoginController : Controller
     {
-        //private readonly IUsersDal usersDal;
-        //private readonly Mapper _mapper;
+
         private readonly LoginServices loginServices;
 
-        public LoginController(/*IUsersDal usersDal,*/ LoginServices loginServices)
+        public LoginController(LoginServices loginServices)
         {
             this.loginServices = loginServices;
-            //_mapper = mapper;
+       
         }
   
         // GET: Login
@@ -45,11 +44,6 @@ namespace Web.Controllers
 
                 Session.Add("User", user.UserName);
 
-                //HttpCookie cookie = new HttpCookie("user",user.UserName);
-
-                //HttpContext.Response.Cookies.Add(cookie);
-
-                //var kullanıci= HttpContext.Response.Cookies["user"].Value;
 
                 return RedirectToAction("Index", "Home");
             }

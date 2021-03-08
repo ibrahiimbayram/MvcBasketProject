@@ -55,14 +55,22 @@ namespace Web.Controllers
 
         public ActionResult GetLanguage(string id)
         {
+            var user = Session["user"];
+            if (user == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+            else
+            {
+                var name = _languageServices.GetLanguages(id);
+                Session["languageName"] = name.MyBasket;
 
-            var name = _languageServices.GetLanguages(id);
-            Session["languageName"] = name.MyBasket;
 
+                TempData["Language"] = _languageServices.GetLanguages(id);
 
-            TempData["Language"] = _languageServices.GetLanguages(id);
-
-            return RedirectToAction("Index");
+                return RedirectToAction("Index");
+            }
+         
         }
 
 

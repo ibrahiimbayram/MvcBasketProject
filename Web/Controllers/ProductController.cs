@@ -22,23 +22,39 @@ namespace Web.Controllers
         // GET: Product
         public ActionResult Index()
         {
-            return View();
+            var user = Session["user"];
+            if (user == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+            else
+            {
+                return View();
+            }
+                
         }
         [HttpPost]
         public ActionResult Index(Products products, System.Web.HttpPostedFileBase photo)
         {
+            var user = Session["user"];
+            if (user == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+            else
+            {
+                string resimAd = Path.GetFileName(photo.FileName);
+                var yuklenecekyer = Path.Combine(Server.MapPath("~/Resimler"), resimAd);
+                string resimyol = "~/Resimler/" + resimAd;
+                photo.SaveAs(yuklenecekyer);
 
-            string resimAd = Path.GetFileName(photo.FileName);
-            var yuklenecekyer = Path.Combine(Server.MapPath("~/Resimler"), resimAd);
-            string resimyol = "~/Resimler/" + resimAd;
-            photo.SaveAs(yuklenecekyer);
+                products.ProductPicture = resimyol;
 
-            products.ProductPicture = resimyol;
-
-            _productServices.Add(products);
+                _productServices.Add(products);
 
 
-            return View();
+                return RedirectToAction("Index","Home");
+            }
         }
     }
 }
